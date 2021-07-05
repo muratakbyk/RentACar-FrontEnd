@@ -1,0 +1,134 @@
+<div class="card mt-4" *ngIf="cars">
+    <div class="card-header text-center">
+      <strong>Transaction Summary</strong>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Rent Date</th>
+            <th>Return Date</th>
+            <th>Brand</th>
+            <th>Color</th>
+            <th>Model Year</th>
+            <th>Daily Price</th>
+            <th>Deposit</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ rental.rentDate }}</td>
+            <td>{{ rental.returnDate }}</td>
+            <td>{{ cars.brandName }}</td>
+            <td>{{ cars.colorName }}</td>
+            <td>{{ cars.modelYear }}</td>
+            <td>{{ cars.dailyPrice |currency }}</td>
+            <td>{{ cars.dailyPrice | depositAdded:0.50 | currency }}</td>
+            <td>
+              <strong class="text-danger">{{
+                totalPrice | currency
+              }}</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div class="card mt-4">
+      <div class="card-header text-center">
+        <strong>Payment</strong>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="inputbox mt-3">
+            <span>First name on the card</span>
+            <input
+              [(ngModel)]="firstName"
+              type="text"
+              name="name"
+              class="form-control"
+              required="required"
+            />
+            <span>Last name on the card</span>
+            <input
+              [(ngModel)]="lastName"
+              type="text"
+              name="name"
+              class="form-control"
+              required="required"
+            />
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="inputbox mt-3 mr-2">
+                <span>Card number</span>
+                <input
+                  [(ngModel)]="cardNumber"
+                  type="text"
+                  name="name"
+                  class="form-control"
+                  required="required"
+                />
+                <div class="col-md-2">
+                <div class="inputbox mt-3 mr-2">
+                    <span>Cvv</span>
+                    <input
+                      [(ngModel)]="cardNumber"
+                      type="text"
+                      name="name"
+                      class="form-control"
+                      required="required"
+                    />
+                
+                
+                
+                <i class="fa fa-credit-card"></i>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex flex-row">
+                <div class="inputbox mt-3 mr-2">
+                  <span>Expiration Month</span>
+                  <input
+                    [(ngModel)]="expirationMonth"
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    required="required"
+                  />
+                  <span>Expiration Year</span>
+                  <input
+                    [(ngModel)]="expirationYear"
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    required="required"
+                  />
+                </div>
+                <div class="inputbox mt-3 mr-2">
+                  <!-- <span>Cvv</span>
+                  <input
+                    [(ngModel)]="cvv"
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    required="required" -->
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <button (click)="sendRentalToDb()" class="btn btn-success">
+            <strong> </strong> Pay now!
+          </button>
+         
+        </div>
+      </div>
+    </div>

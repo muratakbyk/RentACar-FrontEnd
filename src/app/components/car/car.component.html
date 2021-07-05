@@ -1,0 +1,101 @@
+
+<div *ngIf="dataLoaded == false"
+  class="spinner-border text-primary"
+  role="status"
+>
+  <span class="visually-hidden">Loading...</span>
+</div>
+
+<div class="mb-3">
+  <label for="filterText" class="form-label">Search Car</label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Mercedes,BMW,Audi..">
+</div>
+<div>
+
+</div>
+  
+<div class="container">
+  <div class="row">
+  <div class="col-sm">
+    BRANDS    
+<select [(ngModel)]="id" class="form-select" *ngIf="brands != null">
+
+  
+  <option *ngFor="let brand of brands" [value]="brand.id" selected="getSelectedBrand(brand.id)">{{brand.brandName}}</option> 
+
+</select>
+</div>
+<div class="col-sm">
+
+COLORS
+<select [(ngModel)]="colorId" class="form-select" *ngIf="colors != null">
+
+  
+  <option *ngFor="let color of colors" [value]="color.colorId" selected="getSelectedColor(color.colorId)">{{color.colorName}}</option> 
+
+</select>
+</div>  
+</div>
+
+
+
+  <br>
+  <div class="btn-group">
+    <button
+     (click)="getCarsByFilter(id,colorId)"
+      type="button"
+      class="btn btn-secondary btn-lg btn-block"
+    >
+      Filter
+    </button>
+  </div>
+
+
+
+
+
+<div class="row">
+  <div class="col-lg-4 col-md-6 shadow-lg p-3 mb-5 bg-body rounded " *ngFor="let car of cars | filterPipe:filterText">
+  <div class="card border-0 mb-3" style="width: 18rem;">
+     <img src="{{imgUrl}}{{ car.carImage[0].imagePath}}" class="card-img-top" alt="..." >
+    <div class="card-body text-center">
+      <h4>
+        <a routerLink="/cars/details/{{car.id}}" class="card-title text-decoration-none h5" style="color:#007bff;">{{car.carName}} </a>
+      </h4> 
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <span class="float-start">Brand Name </span>
+        <span class="float-end">{{car.brandName}}</span>
+      </li>
+      <li class="list-group-item">
+        <span class="float-start">Color </span>
+        <span class="float-end">{{car.colorName}}</span>
+
+      </li>
+      <li class="list-group-item">
+        <span class="float-start">Model Year </span>
+        <span class="float-end">{{car.modelYear}}</span>
+      </li>
+      <li class="list-group-item">
+        <span class="float-start">Deposit </span>
+        <span class="float-end">{{car.dailyPrice | depositAdded:0.50 | currency }}</span>
+
+      </li>  
+      <li class="list-group-item">
+        <span class="float-start">Name </span>
+        <span class="float-end">{{car.carName}}</span>
+      </li>  
+      
+      <p class="card-text text-center h3 mt-3">{{car.dailyPrice | currency}}/Day</p>
+    </ul>
+    <div class="card-body">
+      <div class="d-flex action justify-content-between">
+        <a href="/cars/rentals/{{car.id}}" class="btn btn-success ">Rent Now</a>
+        <a (click)="setCurrentCar(car)" routerLink="/cars/details/{{car.id}}"
+         class="btn btn-primary">Details </a>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
